@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (context, index) => _bandTile(bands[index])),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: addBand,
       ),
     );
   }
@@ -49,5 +49,45 @@ class _HomePageState extends State<HomePage> {
         debugPrint(banda.name);
       },
     );
+  }
+
+  addBand() {
+    final textController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Add new band'),
+        content: TextField(
+          controller: textController,
+          decoration: InputDecoration(
+            labelText: 'Band name',
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          MaterialButton(
+            child: Text('Confirm'),
+            onPressed: () => addElement(textController.text),
+          ),
+        ],
+      ),
+    );
+  }
+
+  addElement(String text) {
+    Band band = Band(
+        id: (int.parse(bands.last.id) + 1).toString(),
+        name: text,
+        description: '',
+        votes: 4);
+    setState(() {
+      bands.add(band);
+    });
+    Navigator.of(context).pop();
   }
 }
