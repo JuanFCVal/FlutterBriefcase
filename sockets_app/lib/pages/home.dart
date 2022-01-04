@@ -44,6 +44,9 @@ class _HomePageState extends State<HomePage> {
     return Dismissible(
       key: Key(banda.id),
       direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        bands.remove(banda);
+      },
       background: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         color: Colors.red,
