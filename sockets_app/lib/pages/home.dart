@@ -40,14 +40,25 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  ListTile _bandTile(Band banda) {
-    return ListTile(
-      title: Text(banda.name),
-      subtitle: Text(banda.description ?? ''),
-      trailing: Text(banda.votes.toString()),
-      onTap: () {
-        debugPrint(banda.name);
-      },
+  _bandTile(Band banda) {
+    return Dismissible(
+      key: Key(banda.id),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        color: Colors.red,
+        child: const Align(
+            alignment: Alignment.centerRight,
+            child: Icon(Icons.delete, color: Colors.white)),
+      ),
+      child: ListTile(
+        title: Text(banda.name),
+        subtitle: Text(banda.description ?? ''),
+        trailing: Text(banda.votes.toString()),
+        onTap: () {
+          debugPrint(banda.name);
+        },
+      ),
     );
   }
 
