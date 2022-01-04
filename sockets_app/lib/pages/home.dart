@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
     Band(
         id: '1',
         name: 'Metallica',
-        description: 'assets/metallica.jpg',
+        description: 'assets/metallica.jpg' * 1,
         votes: 5),
     Band(
         id: '2',
