@@ -11,9 +11,10 @@ class Band {
 
   factory Band.fromJson(Map<String, dynamic> json) => Band(
         //Crea una instancia de la clase
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        votes: json["votes"],
+        id: json.containsKey('id') ? json["id"] : "no-id",
+        name: json.containsKey('name') ? json["name"] : "no-name",
+        description:
+            json.containsKey('name') ? json["description"] : "no- description",
+        votes: json.containsKey('votes') ? json["votes"] : 0,
       );
 }

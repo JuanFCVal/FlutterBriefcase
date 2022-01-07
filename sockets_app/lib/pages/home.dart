@@ -11,21 +11,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Band> bands = [
-    Band(
-        id: '1',
-        name: 'Metallica',
-        description: 'assets/metallica.jpg' * 1,
-        votes: 5),
-    Band(
-        id: '2',
-        name: 'Ramstein',
-        description: 'assets/metallica.jpg',
-        votes: 3),
-    Band(id: '3', name: 'Pink Floyd', votes: 3),
-  ];
+  List<Band> bands = [];
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    final socketService = Provider.of<SocketService>(context, listen: false);
+    socketService.socket.on('active-bands', (data) {
+      bands = (data as List).map((band) => Band.fromJson(band)).toList();
+      setState(() {});
+      // for (var item in data) {
+      //   Band banda = Band.fromJson(item);
+      //   bands.add(banda);
+      // }
+    });
+  }
+
+  @override
+  void dispose() {
+    final socketService = Provider.of<SocketService>(context, listen: false);
+    socketService.socket.off('active-bands');
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext contex) {
     final socketProvider = Provider.of<SocketService>(context);
     return Scaffold(
       appBar: AppBar(
@@ -52,11 +60,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   _bandTile(Band banda) {
+    final socket = Provider.of<SocketService>(context, listen: false);
     return Dismissible(
       key: Key(banda.id),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
-        bands.remove(banda);
+        socket.socket.emit('remove-band', {"band_id": banda.id});
       },
       background: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -70,7 +79,7 @@ class _HomePageState extends State<HomePage> {
         subtitle: Text(banda.description ?? ''),
         trailing: Text(banda.votes.toString()),
         onTap: () {
-          debugPrint(banda.name);
+          socket.socket.emit('add-vote', {"band_id": banda.id});
         },
       ),
     );
@@ -105,14 +114,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   addElement(String text) {
-    Band band = Band(
-        id: (int.parse(bands.last.id) + 1).toString(),
-        name: text,
-        description: '',
-        votes: 4);
-    setState(() {
-      bands.add(band);
-    });
+    final socket = Provider.of<SocketService>(context, listen: false);
+    socket.socket.emit('add-band', {"name": text});
     Navigator.of(context).pop();
   }
 }
