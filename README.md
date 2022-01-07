@@ -1,2 +1,2 @@
 # FlutterSocketsApp
-This app is for develop an application using Streams in flutter and implement a Backend that enables sockets for real time communitation.
+This app is for develop an application Provider and Sockets in flutter  for real time communication.
