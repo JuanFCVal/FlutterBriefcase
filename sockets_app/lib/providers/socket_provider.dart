@@ -21,7 +21,7 @@ class SocketService with ChangeNotifier {
   }
   void _initConfig() {
     // Dart client
-    _socket = IO.io('http://192.168.1.118:3000', {
+    _socket = IO.io('https://bands-socket-server-flutter.herokuapp.com/', {
       'transports': ['websocket'],
       'autoConnect': true,
     });

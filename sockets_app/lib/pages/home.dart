@@ -134,7 +134,6 @@ class _HomePageState extends State<HomePage> {
   Widget _showGraph() {
     Map<String, double> dataMap = {};
     for (var band in bands) {
-      print(band.name + band.votes.toString());
       dataMap.putIfAbsent(band.name, () => band.votes.toDouble());
     }
     return PieChart(dataMap: dataMap);
