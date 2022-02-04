@@ -1,0 +1,27 @@
+{
+    "data": [
+    {    
+    "name": "Diseño básico",
+    "icon": "apartment",
+    "route": "basicDesign"
+    },
+    {
+        "name": "Diseño scroll",
+        "icon": "close_fullscreen_sharp",
+        "route": "basicDesign2"
+    },      
+    {
+        "name": "Comunicacion sockets",
+        "icon": "computer",
+        "route": "sockets"
+    },
+    {
+        "name": "App QR Code",
+        "icon": "computer",
+        "route": "qrPage"
+    }
+    
+
+]
+
+}
