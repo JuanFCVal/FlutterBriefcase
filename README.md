@@ -1,2 +1,2 @@
 # FlutterSocketsApp
-This app is for develop an application Provider and Sockets in flutter  for real time communication.
+This app is briefcase of a bunch of little flutter applications I made for a udemyCourse.
